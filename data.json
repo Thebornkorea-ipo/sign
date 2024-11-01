@@ -1,0 +1,9 @@
+{
+    "pendingMembers": [
+      { "id": 1, "name": "홍길동", "phone": "010-1234-5678", "accountNumber": "123-456-789" },
+      { "id": 2, "name": "이순신", "phone": "010-8765-4321", "accountNumber": "987-654-321" }
+    ],
+    "approvedMembers": [
+      // 승인된 회원 목록
+    ]
+  }

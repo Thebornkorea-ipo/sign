@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>회원 관리</h1>
+    </header>
+    <main>
+        <h2>승인 대기 중인 회원 목록</h2>
+        <table id="pendingMembersTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>이름</th>
+                    <th>전화번호</th>
+                    <th>증권계좌번호</th>
+                    <th>승인</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 여기서 JavaScript로 데이터를 동적으로 추가합니다 -->
+            </tbody>
+        </table>
+    </main>
+    <script>
+        // 승인 대기 중인 회원 정보를 불러오는 함수
+        async function loadPendingMembers() {
+            const response = await fetch('/api/pendingMembers');
+            const members = await response.json();
+            const tableBody = document.querySelector('#pendingMembersTable tbody');
+
+            members.forEach(member => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${member.id}</td>
+                    <td>${member.name}</td>
+                    <td>${member.phone}</td>
+                    <td>${member.accountNumber}</td>
+                    <td><button onclick="approveMember(${member.id})">승인</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // 회원 승인 함수
+        async function approveMember(memberId) {
+            const response = await fetch(`/api/approve/${memberId}`, { method: 'POST' });
+            if (response.ok) {
+                alert("회원이 승인되었습니다.");
+                location.reload(); // 페이지 새로고침하여 변경사항 반영
+            } else {
+                alert("회원 승인에 실패했습니다.");
+            }
+        }
+
+        // 페이지 로딩 시 승인 대기 중인 회원 정보 로드
+        window.onload = loadPendingMembers;
+    </script>
+</body>
+</html>

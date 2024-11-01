@@ -1,0 +1,20 @@
+{
+    "name": "signsite",
+    "version": "1.0.0",
+    "description": "A brief description of your project",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "fastify": "^3.29.0",
+      "@fastify/static": "^3.1.0",
+      "@fastify/formbody": "^6.0.0",
+      "@fastify/view": "^4.0.0",
+      "handlebars": "^4.7.7"
+    },
+    "engines": {
+      "node": "14.x"
+    }
+  }
+  
